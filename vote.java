@@ -15,4 +15,5 @@ class vote
             System.out.println("You are not eligible to vote.");
         }
     }
+    
 }

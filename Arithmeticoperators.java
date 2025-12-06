@@ -19,5 +19,6 @@ class Arithmeticoperators{
         System.out.println("Division is:"+div);
         mod=a%b;
         System.out.println("Modulus is:"+mod);
+        sc.close();
     }
 }

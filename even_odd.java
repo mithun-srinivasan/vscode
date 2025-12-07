@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 class even_odd{
+@SuppressWarnings("ConvertToTryWithResources")
 public static void main(String Args[])
 {
 Scanner sc=new Scanner(System.in);

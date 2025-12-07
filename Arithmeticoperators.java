@@ -1,6 +1,7 @@
 import java.util.Scanner;
 class Arithmeticoperators{
 
+    @SuppressWarnings("ConvertToTryWithResources")
     public static void main(String Args[]){
         Scanner sc =new Scanner(System.in);
         int a,b,sum,sub,mul,mod;

@@ -2,7 +2,7 @@ import java.util.Scanner;
 class Arithmeticoperators{
 
     public static void main(String Args[]){
-        Scanner sc=new Scanner(System.in);
+        Scanner sc =new Scanner(System.in);
         int a,b,sum,sub,mul,mod;
         int div;
         System.out.println("Enter first number:");

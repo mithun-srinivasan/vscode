@@ -1,5 +1,6 @@
 import java.util.Scanner;
 class MatrixMul {
+    @SuppressWarnings("ConvertToTryWithResources")
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
         int r1, c1, r2, c2;

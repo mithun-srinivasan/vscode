@@ -4,7 +4,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFFont
+from reportlab.pdfbase.ttfonts import TTFont
 
 # ==========================================
 # CONFIGURATION
@@ -12,19 +12,15 @@ from reportlab.pdfbase.ttfonts import TTFFont
 FILENAME = "Ganapati_Atharvashirsha_Full.pdf"
 
 # NOTE: You must provide a path to a valid Unicode font that supports Devanagari and Tamil.
-# Common options: "Arial Unicode MS", "Nirmala UI", "Noto Sans", "FreeSerif".
-# Update this path to where your font is located.
-# For Windows, 'Nirmala.ttf' is often in C:/Windows/Fonts/
-# For Linux/Mac, use 'NotoSans-Regular.ttf' or similar.
-FONT_PATH = "C:/Windows/Fonts/Nirmala.ttf" 
+# The script will try common Windows/Linux fonts and pick the first that loads.
 FONT_NAME = "UnicodeFont"
-
-# If the specific font isn't found, the script will try to use a fallback or warn.
-if not os.path.exists(FONT_PATH):
-    # Fallback for Linux usually
-    FONT_PATH = "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf"
-    if not os.path.exists(FONT_PATH):
-         print(f"WARNING: Font file not found at {FONT_PATH}. Please edit the script to point to a valid .ttf file that supports Sanskrit and Tamil.")
+FONT_CANDIDATES = [
+    "C:/Windows/Fonts/Nirmala.ttc",
+    "C:/Windows/Fonts/Nirmala.ttf",
+    "C:/Windows/Fonts/latha.ttf",
+    "C:/Windows/Fonts/KOKILA.TTF",
+    "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf",
+]
 
 # ==========================================
 # DATA CONTENT
@@ -69,11 +65,32 @@ MEANINGS_V1 = [
     ["ब्रह्मासि", "brahmāsi", "You are Brahman", "பிரம்மமாக இருக்கிறாய்"],
 ]
 
+def register_unicode_font():
+    for path in FONT_CANDIDATES:
+        if not os.path.exists(path):
+            continue
+        if path.lower().endswith(".ttc"):
+            for index in range(3):
+                try:
+                    pdfmetrics.registerFont(TTFont(FONT_NAME, path, subfontIndex=index))
+                    return path
+                except Exception:
+                    continue
+        else:
+            try:
+                pdfmetrics.registerFont(TTFont(FONT_NAME, path))
+                return path
+            except Exception:
+                continue
+    raise FileNotFoundError("No suitable Unicode font found. Update FONT_CANDIDATES with a valid .ttf/.ttc path.")
+
+
 def create_pdf():
     try:
-        pdfmetrics.registerFont(TTFFont(FONT_NAME, FONT_PATH))
+        font_path = register_unicode_font()
+        print(f"Using font: {font_path}")
     except Exception as e:
-        print(f"Error loading font: {e}. Ensure FONT_PATH points to a valid TTF.")
+        print(f"Error loading font: {e}")
         return
 
     doc = SimpleDocTemplate(FILENAME, pagesize=A4, rightMargin=30, leftMargin=30, topMargin=30, bottomMargin=30)

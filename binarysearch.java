@@ -21,7 +21,7 @@ public class binarysearch {
 
 	public static void main(String[] args) {
 		int[] nums = {1, 3, 5, 7, 9, 11};
-		int value = 7;
+		int value = 9;
 		System.out.println(binarySearch(nums, value));
 	}
 }

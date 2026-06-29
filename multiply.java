@@ -1,10 +1,10 @@
 import java.util.Scanner;
-class mutiply
+class multiply
 {   
     public static void main(String[] args) {
 
         int a,b,c;
-        Scanner ob=new Scanner(System.in);
+        Scanner ob =new Scanner(System.in);
         System.out.println("Enter 2 numbers");
         a=ob.nextInt();
         b=ob.nextInt();

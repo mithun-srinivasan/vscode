@@ -20,6 +20,7 @@ class Arithmeticoperators{
         System.out.println("Division is:"+div);
         mod=a%b;
         System.out.println("Modulus is:"+mod);
+        System.out.println("Hi Baadu!");
         sc.close();
     }
 }

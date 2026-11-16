@@ -1,0 +1,5 @@
+Hi! I'm Learning Vim and it's cool btw.
+first line.
+second line..
+third line...
+
